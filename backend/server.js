@@ -1,16 +1,30 @@
 require('dotenv').config()
 
 const express = require('express')
+const mongoose = require('mongoose')
+const userRouter = require('./routes/user')
 
 //express app
-const app = express()
+const mbc = express()
 
-//test
-app.get('/', (req, res) => {
-    res.json({mssg: 'whats up'})
+//middleware
+mbc.use(express.json())
+
+mbc.use((req, res, next) =>{
+    console.log(req.path, req.method)
+    next()
 })
 
-app.listen(process.env.PORT, () => {
-    console.log('heyy', process.env.PORT)
+//routes 
+mbc.use('/api/user',userRouter)
+
+//connect to DB
+mongoose.connect(process.env.MONGO_URI)
+.then (() => {
+    mbc.listen(process.env.PORT, () =>{
+    console.log('connected to DB and listening on port', process.env.PORT)
 })
-process.env
+})
+.catch ((error) => {
+    console.log(error)
+})
