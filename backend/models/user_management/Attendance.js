@@ -1,36 +1,45 @@
 const mongoose = require('mongoose');
 
-const AttendanceSchema = new mongoose.Schema(
+const attendanceSchema = new mongoose.Schema(
   {
-    firstName: {
-      type: String,
+    employeeId: {
+      type: mongoose.Schema.Types.ObjectId, // References the employee schema
+      ref: 'Employee', // Assumes you have an "Employee" schema
       required: true,
-      trim: true,
     },
-    middleName: {
-      type: String,
-      trim: true,
-    },
-    lastName: {
-      type: String,
+    timeIn: {
+      type: Date,
       required: true,
+    },
+    timeOut: {
+      type: Date,
+      required: false, // Optional if the employee hasn't clocked out yet
+    },
+    overtime: {
+      type: Number, // In hours or minutes
+      default: 0,
+    },
+    late: {
+      type: Boolean, 
+      default: false,
+    },
+    absent: {
+      type: Boolean,
+      default: false,
+    },
+    reasonForAbsence: {
+      type: String,
+      required: function () {
+        return this.absent; // Required only if the employee is marked absent
+      },
       trim: true,
-    },
-    role: {
-      type: String,
-      required: true,
-      enum: ['blank', 'blank', 'blank'], 
-      default: 'admin',
-    },
-    rememberToken: {
-      type: String,
-      default: null, // Used for authentication (e.g., remember me functionality)
     },
   },
   {
-    timestamps: true, // Automatically adds createdAt and updatedAt fields
+    timestamps: true,
   }
 );
 
-module.exports = mongoose.model('User', UserSchema);
+const Attendance = mongoose.model('Attendance', attendanceSchema);
 
+module.exports = Attendance;
