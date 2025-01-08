@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const User = require('../userModel');
+const Employee = require('./employeeModel'); 
 
 // Define the EmergencyContact Schema
 const EmergencyContactSchema = new mongoose.Schema({
