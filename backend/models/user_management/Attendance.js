@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const attendanceSchema = new mongoose.Schema(
+const AttendanceSchema = new mongoose.Schema(
   {
     employeeId: {
       type: mongoose.Schema.Types.ObjectId, // References the employee schema
@@ -40,6 +40,6 @@ const attendanceSchema = new mongoose.Schema(
   }
 );
 
-const Attendance = mongoose.model('Attendance', attendanceSchema);
+const Attendance = mongoose.model('Attendance', AttendanceSchema);
 
 module.exports = Attendance;
