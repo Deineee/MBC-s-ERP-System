@@ -16,11 +16,19 @@ const UserSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    userName: {
+      type: String,
+      required: true,
+    },
     role: {
       type: String,
       required: true,
-      enum: ['blank', 'blank', 'blank'], 
+      enum: ['blank', 'blank', 'blank'], //fill this out pls!!!!
       default: 'admin',
+    },
+    email: {
+      type: String,
+      required: true,
     },
     rememberToken: {
       type: String,
@@ -28,7 +36,7 @@ const UserSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // Automatically adds createdAt and updatedAt fields
+    timestamps: true, 
   }
 );
 

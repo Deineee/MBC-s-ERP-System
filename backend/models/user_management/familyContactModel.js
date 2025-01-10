@@ -1,26 +1,19 @@
 const mongoose = require('mongoose');
 
+const Employee = require('./employeeModel'); 
+
 const FamilyContactSchema = new mongoose.Schema(
   {
     family_contact: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Employee',
+      ref: 'Employee',  
       required: true,
       unique: true,
     },
-    firstName: {
+    name: {
         type:String,
         required: true,
         trim: true,
-    },
-    middleName: {
-      type: String,
-      trim: true,
-    },
-    lastName: {
-      type: String,
-      required: true,
-      trim: true,
     },
     relationship: {
         type: String,
@@ -34,7 +27,7 @@ const FamilyContactSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // Automatically adds createdAt and updatedAt fields
+    timestamps: true, 
   }
 );
 

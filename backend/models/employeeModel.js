@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const Employee = require('./employeeModel'); 
+
 const EmployeeSchema = new mongoose.Schema(
   {
     employee_id: {
