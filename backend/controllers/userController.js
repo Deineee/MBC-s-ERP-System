@@ -1,6 +1,30 @@
 const User = require('../models/userModel')
 const mongoose = require ('mongoose')
 
+// Login user
+const loginUser = async (req, res) => {
+    const { userName, password } = req.body;
+  
+    try {
+      const { user, token } = await User.login(userName, password);
+      res.status(200).json({ message: 'Login successful', user, token });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+// Signup user
+const signupUser = async (req, res) => {
+    const { firstName, lastName, userName, role, email, password } = req.body;
+  
+    try {
+      const user = await User.signup({ firstName, lastName, userName, role, email, password });
+      res.status(201).json({ message: 'User created successfully', user });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
 // get all user
 const getUsers = async (req, res) => {
     const user = await User.find({}).sort({createdAt: -1})
@@ -27,11 +51,11 @@ const getUser = async (req, res) => {
 
 // create new user
 const createUser = async (req, res) => {
-    const {firstName, middleName, lastName, userName, role, email} = req.body
+    const {firstName, middleName, lastName, userName, role, email, password} = req.body
     
         // add doc to db
         try {
-            const user = await User.create({firstName, middleName, lastName, userName, role, email})
+            const user = await User.create({firstName, middleName, lastName, userName, role, email, password})
             res.status(200).json(user)
         } catch (error) {
             res.status(400).json({error: error.message})
@@ -65,9 +89,11 @@ const updateUser = async (req, res) => {
         return res.status(404).json({error: 'User not found'})
     }
 
-    const user = await User.findOneAndUpdate({_id: id}, {
-        ...req.body
-    })
+    const user = await User.findOneAndUpdate(
+        { _id: id },
+        { ...req.body },
+        { new: true } 
+      );
 
     if (!user){
         return res.status(404).json({error: 'User not found'})
@@ -81,5 +107,7 @@ module.exports = {
     getUser,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    signupUser,
+    loginUser
 }
