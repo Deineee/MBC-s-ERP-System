@@ -1,4 +1,4 @@
-const Employee = require('../models/employeeModel');
+const Employee = require('../models/user_management/employeeModel');
 
 
 
