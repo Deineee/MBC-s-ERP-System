@@ -12,7 +12,7 @@ const Login = () => {
 
     };
     return(
-        <div className ="home">
+        <div className ="login">
             <h2>MBC</h2>
             <form onSubmit={handleSubmit}>
                 <div>
