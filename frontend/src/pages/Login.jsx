@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +16,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:4000/api/users/login', {
+      const response = await fetch('http://localhost:4000/api/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +64,7 @@ const Login = () => {
         <div>
           <label htmlFor="password">Password: </label>
           <input
-            type="password" // Changed to password type
+            type="password"
             id="password"
             name="password"
             value={password}
@@ -77,6 +79,11 @@ const Login = () => {
           </button>
         </div>
       </form>
+
+      <div style={{ marginTop: '20px' }}>
+        <p>Don't have an account?</p>
+        <button onClick={() => navigate('/signup')}>Sign Up</button> {/* Navigate to signup page */}
+      </div>
     </div>
   );
 };
