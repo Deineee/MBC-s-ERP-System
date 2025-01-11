@@ -1,5 +1,5 @@
-const Contributions = require('../models/contributionsModel'); // Adjust the path as necessary
-const Employee = require('../models/employeeModel'); // Adjust the path as necessary
+const Contributions = require('../models/user_management/contributionsModel'); // Adjust the path as necessary
+const Employee = require('../models/user_management/employeeModel'); // Adjust the path as necessary
 
 // Get all contributions
 const getAllContributions = async (req, res) => {

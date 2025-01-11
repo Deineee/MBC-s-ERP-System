@@ -1,27 +1,27 @@
 const express = require('express');
 const {
-  createContribution,
-  getContributions,
-  getContributionById,
-  updateContribution,
-  deleteContribution,
+  createContributions,  
+  getAllContributions,  
+  getContributionsById, 
+  updateContributions,  
+  deleteContributions   
 } = require('../controllers/contributionsController');
 
 const router = express.Router();
 
 // Create a new contribution record
-router.post('/', createContribution);
+router.post('/', createContributions);  // Match the name
 
 // Get all contribution records
-router.get('/', getContributions);
+router.get('/', getAllContributions);  // Match the name
 
 // Get a single contribution record by ID
-router.get('/:id', getContributionById);
+router.get('/:id', getContributionsById);  // Match the name
 
 // Update a contribution record
-router.patch('/:id', updateContribution);
+router.patch('/:id', updateContributions);  // Match the name
 
 // Delete a contribution record
-router.delete('/:id', deleteContribution);
+router.delete('/:id', deleteContributions);  // Match the name
 
 module.exports = router;
