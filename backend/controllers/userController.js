@@ -1,29 +1,42 @@
 const User = require('../models/userModel')
 const mongoose = require ('mongoose')
+const jwt = require('jsonwebtoken')
 
-// Login user
-const loginUser = async (req, res) => {
-    const { userName, password } = req.body;
-  
-    try {
-      const { user, token } = await User.login(userName, password);
-      res.status(200).json({ message: 'Login successful', user, token });
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
+const createToken = (_id) => {
+    return jwt.sign({_id}, process.env.JWT_SECRET, { expiresIn: '3d' })
   }
+
+/// Login user
+const loginUser = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.login(email, password);
+        
+        // create a token
+        const token = createToken(user._id);
+
+        res.status(200).json({ user: { email: user.email, role: user.role }, token });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
 
 // Signup user
 const signupUser = async (req, res) => {
-    const { firstName, lastName, userName, role, email, password } = req.body;
-  
+    const { firstName, middleName, lastName, email, password, role } = req.body;
+
     try {
-      const user = await User.signup({ firstName, lastName, userName, role, email, password });
-      res.status(201).json({ message: 'User created successfully', user });
+        const user = await User.signup(firstName, middleName, lastName, email, password, role);
+
+        // create a token
+        const token = createToken(user._id);
+
+        res.status(200).json({ user: { email: user.email, role: user.role }, token });
     } catch (error) {
-      res.status(400).json({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
-  }
+}
 
 // get all user
 const getUsers = async (req, res) => {
@@ -51,16 +64,16 @@ const getUser = async (req, res) => {
 
 // create new user
 const createUser = async (req, res) => {
-    const {firstName, middleName, lastName, userName, role, email, password} = req.body
+    const {firstName, middleName, lastName, role, email, password} = req.body
     
         // add doc to db
         try {
-            const user = await User.create({firstName, middleName, lastName, userName, role, email, password})
+            const user = await User.create({firstName, middleName, lastName, role, email, password})
             res.status(200).json(user)
         } catch (error) {
             res.status(400).json({error: error.message})
         }
-}   
+} 
 
 // delete user
 const deleteUser = async (req, res) => {

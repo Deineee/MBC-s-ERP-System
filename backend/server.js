@@ -2,14 +2,10 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
-const cors = require('cors')
 const userRoutes = require('./routes/user')
 
 //express app
 const mbc = express()
-
-// Use CORS middleware - Enable for all origins
-mbc.use(cors());
 
 //middleware
 mbc.use(express.json())

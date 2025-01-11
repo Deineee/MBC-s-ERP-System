@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken');
+const validator = require('validator')
 
 const UserSchema = new mongoose.Schema(
   {
@@ -17,11 +17,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-    },
-    userName: {
-      type: String,
-      required: true,
-      unique: true,
     },
     role: {
       type: String,
@@ -48,60 +43,54 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-// Static method for signup
-UserSchema.statics.signup = async function (userData) {
-  const { firstName, lastName, userName, role, email, password } = userData;
-
-  // Check if username already exists
-  const existingUserName = await this.findOne({ userName });
-  if (existingUserName) {
-    throw new Error('Username already in use');
+// Static signup method
+UserSchema.statics.signup = async function(firstName, middleName, lastName, email, password, role = 'staff') {
+  // Validation
+  if (!firstName || !middleName || !lastName || !email || !password || !role) {
+    throw Error('All fields must be filled');
+  }
+  
+  if (!validator.isEmail(email)) {
+    throw Error('Email not valid');
+  }  
+  
+  if (!validator.isStrongPassword(password/*, { minLength: 8, minSymbols: 1, minNumbers: 1 }*/)) {
+    throw Error('Password not strong enough');
   }
 
-  // Check if email already exists
-  const existingEmail = await this.findOne({ email });
-  if (existingEmail) {
-    throw new Error('Email already in use');
+  const exists = await this.findOne({ email });
+  if (exists) {
+    throw Error('Email already in use');
   }
 
-  // Hash the password before saving
+  // Hash the password
   const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  const hash = await bcrypt.hash(password, salt);
 
-  // Create the user
-  const user = await this.create({
-    firstName,
-    lastName,
-    userName,
-    role,
-    email,
-    password: hashedPassword,
-  });
+  // Create and return the new user
+  const user = await this.create({ firstName, middleName, lastName, email, password: hash, role });
 
   return user;
-};
+}
 
+// static login method
+UserSchema.statics.login = async function(email, password) {
 
-// Static method for login
-UserSchema.statics.login = async function (userName, password) {
-  // Find the user by username
-  const user = await this.findOne({ userName });
+  if (!email || !password) {
+    throw Error('All fields must be filled')
+  }
+
+  const user = await this.findOne({ email })
   if (!user) {
-    throw new Error('Invalid username or password');
+    throw Error('Incorrect email')
   }
 
-  // Compare the entered password with the stored hash
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    throw new Error('Invalid username or password');
+  const match = await bcrypt.compare(password, user.password)
+  if (!match) {
+    throw Error('Incorrect password')
   }
 
-  // Generate a JWT token
-  const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
-    expiresIn: '1d', // expiration time
-  });
+  return user
+}
 
-  return { user, token };
-};
-
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema)
