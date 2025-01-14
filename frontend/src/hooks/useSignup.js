@@ -3,34 +3,34 @@ import { useAuthContext } from './useAuthContext'
 
 export const useSignup = () => {
   const [error, setError] = useState(null)
-  const [isLoading, setIsLoading] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
   const { dispatch } = useAuthContext()
 
   const signup = async (firstName, middleName, lastName, email, password, role = 'staff') => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch('/api/user/signup', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ firstName, middleName, lastName, email, password, role })
-    })
-    
-    const json = await response.json()
+    try {
+      const response = await fetch('/api/user/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, middleName, lastName, email, password, role }),
+      })
+      
+      const json = await response.json()
 
-    if (!response.ok) {
-      setIsLoading(false)
-      setError(json.message || 'An error occurred')
-    }
+      if (!response.ok) {
+        setError(json.message || 'Signup failed')
+        return
+      }
 
-    if (response.ok) {
-      // Save the user to local storage
+      // Store user in localStorage and update context
       localStorage.setItem('user', JSON.stringify(json))
-
-      // Update the auth context
       dispatch({ type: 'LOGIN', payload: json })
-
-      // Update loading state
+      
+    } catch (error) {
+      setError('An error occurred during signup.')
+    } finally {
       setIsLoading(false)
     }
   }
