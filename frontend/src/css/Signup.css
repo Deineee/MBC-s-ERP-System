@@ -1,19 +1,8 @@
 /* General Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #34495e;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 
+
+/*
 .signup {
   background-color: white;
   padding: 2rem;
@@ -31,12 +20,12 @@ h3 {
   font-weight: 600;
 }
 
-label {
+ label {
   display: block;
   font-size: 1rem;
   margin-bottom: 0.5rem;
   color: #555;
-}
+} 
 
 input,
 select {
@@ -109,3 +98,4 @@ select:focus {
     font-size: 0.9rem;
   }
 }
+*/
