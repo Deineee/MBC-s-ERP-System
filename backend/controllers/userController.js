@@ -29,7 +29,7 @@ const signupUser = async (req, res) => {
     try {
         const user = await User.signup(firstName, middleName, lastName, email, password, role);
 
-        // Log user creation in the terminal
+        //// Log user creation in the terminal
         console.log(`A new user was created: ${user.firstName} ${user.lastName} (${user.email})`);
 
         // Emit a WebSocket event to notify the frontend
@@ -67,23 +67,6 @@ const getUser = async (req, res) => {
 
     res.status(200).json(user)
 }
-
-// create new user
-// const createUser = async (req, res) => {
-//     const {firstName, middleName, lastName, role, email, password} = req.body
-    
-//         // add doc to db
-//         try {
-//             const user = await User.create({firstName, middleName, lastName, role, email, password})
-//             // Emit a WebSocket event for user creation
-
-            
-
-//             res.status(200).json(user)
-//         } catch (error) {
-//             res.status(400).json({error: error.message})
-//         }
-// } 
 
 // delete user
 const deleteUser = async (req, res) => {
