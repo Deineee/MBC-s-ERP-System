@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const User = require('.user_management/User');
-const Employee = require('./Employee'); 
+// const User = require('.user_management/User');
+// const Employee = require('./Employee'); 
 
 const CredentialsSchema = new mongoose.Schema({
   username: {

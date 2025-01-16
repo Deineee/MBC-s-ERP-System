@@ -3,7 +3,10 @@ import { useAuthContext } from './hooks/useAuthContext';
 // pages & components
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
-import Dashboard from './pages/Dashboard'; 
+import Dashboard from './pages/Dashboard';
+import UserNotification from './components/userNotification';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const { user, loading  } = useAuthContext(); 
@@ -28,7 +31,7 @@ function App() {
                 user ? (
                   <div className="app-container">
                     <div className="main-content">
-                      <Dashboard /> {/* Dashboard content */}
+                      <Dashboard /> 
                     </div>
                   </div>
                 ) : (
@@ -39,6 +42,10 @@ function App() {
           </Routes>
         </div>
       </BrowserRouter>
+      <UserNotification />
+      
+      <ToastContainer />
+
     </div>
   );
 }
