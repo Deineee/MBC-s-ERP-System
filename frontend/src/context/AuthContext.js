@@ -8,7 +8,7 @@ export const authReducer = (state, action) => {
       return { user: action.payload }
     case 'LOGOUT':
       return { user: null }
-    case 'SET_LOADING': // New case for updating loading state
+    case 'SET_LOADING': 
       return { ...state, loading: action.payload };
     default:
       return state

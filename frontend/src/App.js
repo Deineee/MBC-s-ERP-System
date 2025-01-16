@@ -9,7 +9,7 @@ function App() {
   const { user, loading  } = useAuthContext(); 
 
   if (loading) {
-    return <div>Loading...</div>; // You can replace this with a proper loader
+    return <div>Loading...</div>; 
   }
 
   return (
