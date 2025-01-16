@@ -1,90 +1,43 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
+import { useLogin } from "../hooks/useLogin";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const { login, error, isLoading } = useLogin();
   const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Reset error and set loading state
-    setError('');
-    setLoading(true);
+    const success = await login(email, password);
+    if (success) {
 
-    try {
-      const response = await fetch('http://localhost:4000/api/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userName: username, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Login failed');
-      }
-
-      // Handle successful login (e.g., save token to localStorage)
-      console.log('Login successful:', data);
-      localStorage.setItem('token', data.token);
-      alert('Login successful!');
-
-      // Reset form fields
-      setUsername('');
-      setPassword('');
-    } catch (err) {
-      // Handle login error
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      navigate('/dashboard');
     }
   };
 
   return (
-    <div className="login">
-      <h2>MBC</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username: </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password: </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
-        <div>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
-        </div>
-      </form>
+    <form className="login" onSubmit={handleSubmit}>
+      <h3>Log In</h3>
+      
+      <label>Email address:</label>
+      <input 
+        type="email" 
+        onChange={(e) => setEmail(e.target.value)} 
+        value={email} 
+      />
+      <label>Password:</label>
+      <input 
+        type="password" 
+        onChange={(e) => setPassword(e.target.value)} 
+        value={password} 
+      />
 
-      <div style={{ marginTop: '20px' }}>
-        <p>Don't have an account?</p>
-        <button onClick={() => navigate('/signup')}>Sign Up</button> {/* Navigate to signup page */}
-      </div>
-    </div>
+      <button disabled={isLoading}>Log in</button>
+      {error && <div className="error">{error}</div>}
+    </form>
   );
 };
 

@@ -2,7 +2,6 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
-const cors = require('cors')
 const userRoutes = require('./routes/user')
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const contributionsRoutes = require('./routes/contributionsRoutes');
@@ -14,9 +13,12 @@ const familyContactRoutes = require('./routes/familyContactRoutes');
 //express app
 const mbc = express()
 
+// <<<<<<< HEAD
 // Use CORS middleware - Enable for all origins
 // mbc.use(cors());
 
+// =======
+// >>>>>>> main
 //middleware
 mbc.use(express.json())
 

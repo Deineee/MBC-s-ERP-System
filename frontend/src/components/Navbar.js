@@ -7,7 +7,7 @@ const Navbar = () => {
             <div className="container">
                 <Link to="/">
                     <h1>
-                        MBC System {/* Please change this frontend developerss ;) */}
+                        Navbar {/* Please change this frontend developerss ;) */}
                     </h1>
                 </Link>
             </div> 
