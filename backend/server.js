@@ -15,7 +15,7 @@ const familyContactRoutes = require('./routes/familyContactRoutes');
 const mbc = express()
 
 // Use CORS middleware - Enable for all origins
-mbc.use(cors());
+// mbc.use(cors());
 
 //middleware
 mbc.use(express.json())

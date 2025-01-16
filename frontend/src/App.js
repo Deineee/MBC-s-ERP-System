@@ -1,26 +1,37 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
-
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useAuthContext } from './hooks/useAuthContext';  
 // pages & components
-//<<<<<<< HEAD
-import Home from './pages/Home'
-import Dashboard from './pages/Dashboard';  // If the file is .jsx
-
-//=======
-import Login from './pages/Login'
+import Login from './pages/Login';
 import SignUp from './pages/Signup';
+import Dashboard from './pages/Dashboard'; 
 
 function App() {
+  const { user } = useAuthContext(); 
+
   return (
     <div className="App">
       <BrowserRouter>
         <div className="pages">
           <Routes>
-
-            <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-
+            {/* Public Routes */}
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+
+            {/* Protected Route for Dashboard */}
+            <Route
+              path="/dashboard"
+              element={
+                user ? (
+                  <div className="app-container">
+                    <div className="main-content">
+                      <Dashboard /> {/* Dashboard content */}
+                    </div>
+                  </div>
+                ) : (
+                  <Navigate to="/" /> // Redirect to login if not authenticated
+                )
+              }
+            />
           </Routes>
         </div>
       </BrowserRouter>
