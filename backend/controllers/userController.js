@@ -1,7 +1,7 @@
 const User = require('../models/userModel')
 const mongoose = require ('mongoose')
 const jwt = require('jsonwebtoken')
-
+const { io } = require('../server');
 const createToken = (_id) => {
     return jwt.sign({_id}, process.env.JWT_SECRET, { expiresIn: '3d' })
   }
@@ -28,6 +28,12 @@ const signupUser = async (req, res) => {
 
     try {
         const user = await User.signup(firstName, middleName, lastName, email, password, role);
+
+        // Log user creation in the terminal
+        console.log(`A new user was created: ${user.firstName} ${user.lastName} (${user.email})`);
+
+        // Emit a WebSocket event to notify the frontend
+        io.emit('userCreated', { message: `A new user (${firstName} ${lastName}) has been created!` });
 
         // create a token
         const token = createToken(user._id);
@@ -63,17 +69,21 @@ const getUser = async (req, res) => {
 }
 
 // create new user
-const createUser = async (req, res) => {
-    const {firstName, middleName, lastName, role, email, password} = req.body
+// const createUser = async (req, res) => {
+//     const {firstName, middleName, lastName, role, email, password} = req.body
     
-        // add doc to db
-        try {
-            const user = await User.create({firstName, middleName, lastName, role, email, password})
-            res.status(200).json(user)
-        } catch (error) {
-            res.status(400).json({error: error.message})
-        }
-} 
+//         // add doc to db
+//         try {
+//             const user = await User.create({firstName, middleName, lastName, role, email, password})
+//             // Emit a WebSocket event for user creation
+
+            
+
+//             res.status(200).json(user)
+//         } catch (error) {
+//             res.status(400).json({error: error.message})
+//         }
+// } 
 
 // delete user
 const deleteUser = async (req, res) => {
@@ -89,6 +99,8 @@ const deleteUser = async (req, res) => {
     if (!user){
         return res.status(404).json({error: 'User not found'})
     }
+
+    console.log(`A user was deleted: ${user.firstName} ${user.lastName} (${user.email})`);
 
     res.status(200).json(user)
 }
