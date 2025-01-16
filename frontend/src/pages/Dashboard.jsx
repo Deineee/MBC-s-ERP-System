@@ -1,6 +1,9 @@
 import React from 'react';
 import Navbar from '../components/Navbar'; // Adjust the path based on your file structure
 import Sidebar from '../components/Sidebar'; // Adjust the path based on your file structure
+import '../css/Sidebar.css';
+import '../css/Dashboard.css';
+import '../css/Navbar.css';
 
 const Dashboard = () => {
   return (
