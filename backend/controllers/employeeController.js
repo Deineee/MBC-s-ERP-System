@@ -4,7 +4,7 @@ const Employee = require('../models/user_management/employeeModel');
 
 const createEmployee = async (req, res) => {
   try {
-    const { employee_id, firstName, middleName, lastName, birthDate, address, contactNumber, position } = req.body;
+    const { employee_id, firstName, middleName, lastName, birthDate, address, contactNumber} = req.body;
 
     
     const newEmployee = new Employee({
@@ -15,7 +15,6 @@ const createEmployee = async (req, res) => {
       birthDate,
       address,
       contactNumber,
-      position,
     });
 
     await newEmployee.save();

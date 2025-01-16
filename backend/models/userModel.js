@@ -18,10 +18,23 @@ const UserSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    role: {
+    position: {
       type: String,
       required: true,
-      enum: ['admin', 'cashier', 'staff'], //fill this out pls!!!!
+      enum: [
+        'president', 
+        'vice-president', 
+        'corporate secretary', 
+        'finance officer', 
+        'purchasing officer', 
+        'warehouse officer', 
+        'human resources', 
+        'store-in-charge', 
+        'cashier', 
+        'sales personnel', 
+        'driver',
+        'staff'
+      ],
       default: 'staff',
     },
     email: {
@@ -44,9 +57,9 @@ const UserSchema = new mongoose.Schema(
 );
 
 // Static signup method
-UserSchema.statics.signup = async function(firstName, middleName, lastName, email, password, role = 'staff') {
+UserSchema.statics.signup = async function(firstName, middleName, lastName, email, password, position = 'staff') {
   // Validation
-  if (!firstName || !middleName || !lastName || !email || !password || !role) {
+  if (!firstName || !middleName || !lastName || !email || !password || !position) {
     throw Error('All fields must be filled');
   }
   
@@ -68,7 +81,7 @@ UserSchema.statics.signup = async function(firstName, middleName, lastName, emai
   const hash = await bcrypt.hash(password, salt);
 
   // Create and return the new user
-  const user = await this.create({ firstName, middleName, lastName, email, password: hash, role });
+  const user = await this.create({ firstName, middleName, lastName, email, password: hash, position });
 
   return user;
 }

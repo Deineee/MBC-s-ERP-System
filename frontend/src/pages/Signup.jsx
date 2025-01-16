@@ -7,14 +7,14 @@ const Signup = () => {
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState('staff') // default role
+  const [position , setPosition ] = useState('staff') // default role
   const { signup, error, isLoading } = useSignup()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     // Send all fields to signup function
-    await signup(firstName, middleName, lastName, email, password, role )
+    await signup(firstName, middleName, lastName, email, password, position )
   }
 
   return (
@@ -56,11 +56,20 @@ const Signup = () => {
         value={password} 
       />
 
-      <label>Role:</label>
-      <select onChange={(e) => setRole(e.target.value)} value={role}>
-        <option value="staff">Staff</option>
+      <label>Position:</label>
+      <select onChange={(e) => setPosition(e.target.value)} value={position}>
+        <option value="president">President</option>
+        <option value="vice-president">Vice President</option>
+        <option value="corporate secretary">Corporate Secretary</option>
+        <option value="finance officer">Finance Officer</option>
+        <option value="purchasing officer">Purchasing Officer</option>
+        <option value="warehouse officer">Warehouse Officer</option>
+        <option value="human resources">Human Resources</option>
+        <option value="store-in-charge">Store in Charge</option>
         <option value="cashier">Cashier</option>
-        <option value="admin">Admin</option>
+        <option value="sales personnel">Sales Personnel</option>
+        <option value="driver">Driver</option>
+        <option value="staff">Staff</option>
       </select>
 
       <button disabled={isLoading}>Sign up</button>
