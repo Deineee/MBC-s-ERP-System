@@ -1,30 +1,36 @@
 const express = require('express')
+const authenticate = require('../middleware/authMiddleware');
+const {
+    createUser,
+    getUsers,
+    getUser,
+    deleteUser,
+    updateUser,
+    signupUser,
+    loginUser
+} = require('../controllers/userController')
 
 const router = express.Router()
 
-//sample for getting all user manage
-router.get('/', (req, res) => {
-    res.json({mssg: 'GET all user manage'})
-})
+// Login route
+router.post('/login', loginUser);
 
-//sample for getting single user manage
-router.get('/:id', (req, res) =>{
-    res.json({mssg: 'GET single user manage'})
-})
+// Signup route
+router.post('/signup', signupUser);
 
-//sample POST a  new user manage
-router.post('/', (req, res) => {
-    res.json({mssg: 'POST a new user manage'})
-})
+//sample for getting all user 
+router.get('/', authenticate, getUsers)
 
-//sample DELETE a  new user manage
-router.delete('/:id', (req, res) => {
-    res.json({mssg: 'DELETE a new user manage'})
-})
+//sample for getting single user 
+router.get('/:id', authenticate, getUser)
 
-//sample UPDATE a  new user manage
-router.patch('/', (req, res) => {
-    res.json({mssg: 'UPDATE a new user manage'})
-})  
+//sample POST a  new user 
+router.post('/', authenticate, createUser)
+
+//sample DELETE a  new user
+router.delete('/:id', authenticate, deleteUser)
+
+//sample UPDATE a  new user 
+router.patch('/:id', authenticate, updateUser) 
 
 module.exports = router

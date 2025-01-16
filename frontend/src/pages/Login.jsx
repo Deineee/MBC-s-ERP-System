@@ -19,16 +19,7 @@ const Login = () => {
   };
 
   return (
-    
-
     <form className="login" onSubmit={handleSubmit}>
-      <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      {/* Pentagon */}
-      <polygon
-        points="100,0 0,0 0,200 100,200 175,100"
-        fill="#D9D9D9"
-      />
-      </svg>
       <h3>Log In</h3>
       
       <label>Email address:</label>

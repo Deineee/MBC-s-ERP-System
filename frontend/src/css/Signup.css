@@ -14,7 +14,7 @@ body {
   height: 100vh;
 }
 
-.login {
+.signup {
   background-color: white;
   padding: 2rem;
   border-radius: 8px;
@@ -38,7 +38,8 @@ label {
   color: #555;
 }
 
-input {
+input,
+select {
   width: 100%;
   padding: 0.75rem;
   margin-bottom: 1rem;
@@ -55,7 +56,7 @@ input[type="password"] {
 button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #007bff;
+  background-color: #4CAF50;
   color: white;
   font-size: 1rem;
   border: none;
@@ -70,7 +71,7 @@ button:disabled {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
 }
 
 .error {
@@ -79,18 +80,19 @@ button:hover {
   text-align: center;
 }
 
-form .login {
+form .signup {
   display: flex;
   flex-direction: column;
 }
 
-input:focus {
-  border-color: #007bff;
+input:focus,
+select:focus {
+  border-color: #4CAF50;
   outline: none;
 }
 
 @media (max-width: 480px) {
-  .login {
+  .signup {
     padding: 1.5rem;
   }
 
@@ -98,7 +100,8 @@ input:focus {
     font-size: 1.25rem;
   }
 
-  input {
+  input,
+  select {
     font-size: 0.9rem;
   }
 
