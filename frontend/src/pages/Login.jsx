@@ -8,13 +8,10 @@ import '../css/Login.css';
 const Login = () => {
 
   return (
-  <div>
+  <div className="login-page">
     <div className="leftpanel">
       <h1>MBB System</h1>
     </div>
-
-    
-
     <Panel/>
   </div>
   );

@@ -6,7 +6,11 @@ import SignUp from './pages/Signup';
 import Dashboard from './pages/Dashboard'; 
 
 function App() {
-  const { user } = useAuthContext(); 
+  const { user, loading  } = useAuthContext(); 
+
+  if (loading) {
+    return <div>Loading...</div>; // You can replace this with a proper loader
+  }
 
   return (
     <div className="App">

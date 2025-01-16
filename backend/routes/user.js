@@ -1,7 +1,6 @@
 const express = require('express')
 const authenticate = require('../middleware/authMiddleware');
 const {
-    createUser,
     getUsers,
     getUser,
     deleteUser,
@@ -23,9 +22,6 @@ router.get('/', authenticate, getUsers)
 
 //sample for getting single user 
 router.get('/:id', authenticate, getUser)
-
-//sample POST a  new user 
-router.post('/', authenticate, createUser)
 
 //sample DELETE a  new user
 router.delete('/:id', authenticate, deleteUser)
