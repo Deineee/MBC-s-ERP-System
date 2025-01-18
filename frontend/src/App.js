@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext';  
 // pages & components
 import Login from './pages/Login';
-import SignUp from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import UserNotification from './components/userNotification';
 import { ToastContainer } from 'react-toastify';
@@ -22,7 +21,6 @@ function App() {
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
 
             {/* Protected Route for Dashboard */}
             <Route

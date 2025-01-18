@@ -1,11 +1,19 @@
-import React from 'react';
-import Navbar from '../components/Navbar'; // Adjust the path based on your file structure
-import Sidebar from '../components/Sidebar'; // Adjust the path based on your file structure
+import { useState } from 'react';
+import Navbar from '../components/Navbar'; 
+import Sidebar from '../components/Sidebar'; 
+import UserCreate from '../components/userCreate';
 import '../css/Sidebar.css';
 import '../css/Dashboard.css';
 import '../css/Navbar.css';
 
 const Dashboard = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+
+  // Function to toggle the modal
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
   return (
     <div className="dashboard-layout">
       {/* Navbar at the top */}
@@ -19,7 +27,23 @@ const Dashboard = () => {
         {/* Dashboard content */}
         <main className="dashboard-content">
           <h2>Welcome to the Dashboard!</h2>
-          {/* Add more dashboard-specific content here */}
+
+          {/* Button to trigger the UserSignup modal */}
+          <button onClick={toggleModal} className="create-user-button">
+            Create User
+          </button>
+
+          {/* Conditional rendering for the UserSignup modal */}
+          {isModalOpen && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+                <button className="close-modal" onClick={toggleModal}>
+                  X
+                </button>
+                <UserCreate />
+              </div>
+            </div>
+          )}
         </main>
       </div>
     </div>
