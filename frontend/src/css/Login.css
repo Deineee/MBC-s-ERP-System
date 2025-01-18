@@ -5,44 +5,122 @@
   box-sizing: border-box;
 }
 
+html, body {
+  overflow: hidden;  /* Prevent scrolling */
+  height: 100%;      /* Ensure the height is set to prevent scrolling */
+}
+
 .login-page {
-  font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;                           
   background-color: #112d51;
   height: 100vh;
-  display: flex;
+  display: flex;                 
   justify-content: center;
   align-items: center;
   position: relative;
-}
-
-.login-container {
-  display: flex;
-  width: 100%;
-  max-width: 55%;
-  height: 100vh;
-  background-image: url('../images/grey-background.svg');
-  background-size: cover;
-  background-repeat: no-repeat;
-
-}
-
-.mbc-logo {
-  width: 10%; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
-  position: absolute;
-  display: block;
-  top: 40px; /* Adjust the top position as needed */
-  left: 60px; /* Adjust the left position as needed */
   z-index: 1;
 }
 
-.login-panel {
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
-
+.login-container {  
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  justify-content: space-between; /* Distribute items vertically with space between */
+  align-items: left; /* Center items horizontally */
+  padding-top: 3rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  padding-bottom: 3rem;
+  width: 80%;
+  height: 100vh;
+  background-image: url('../images/grey-background.svg');
+  background-size: cover; /* Keeps the background size consistent */
+  background-repeat: no-repeat;
+  background-position: center; /* Initially centers the background */
+  position: relative;
+  transition: background-position 0.3s ease; /* Smooth transition for background movement */
 }
 
+.login-container:before {
+  content: ''; /* Creates a pseudo-element */
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../images/grey-background.svg');
+  background-size: cover; /* Keeps the background size consistent */
+  background-repeat: no-repeat;
+  background-position: center; /* Initially centers the background */
+  filter: blur(80px) brightness(10%) contrast(100%) grayscale(100%); /* Apply blur and brightness */
+  transform:translateX(-1.25rem); /* Slightly enlarges the shadow */
+  z-index: -1; /* Place shadow behind the div content */
+}
+
+@media (max-width: 1300px) {
+  .login-container {
+    background-position: right center; /* Moves the background image to the left */
+  }
+}
+
+.mbc-logo {
+  width: 20%; /* Adjust the size as needed */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Ensures it behaves like a block element */
+  margin-bottom: 1rem; /* Adds spacing below the logo */
+}
+
+.copyright-logo {
+  width: 3%; /* Adjust the size as needed */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Ensures it behaves like a block element */
+  align-items: space-around;
+  margin-right: .3rem;
+}
+
+.footer-group {
+  display: flex;
+  flex-direction: row; /* Items in a row */
+  justify-content: flex-start; /* Aligns items to the left horizontally */
+  align-items: center; /* Vertically centers the items */
+}
+
+.login-footer {
+  display: flex;
+  flex-direction: row; /* Items in a row */
+  justify-content: flex-start; /* Aligns items to the left horizontally */
+  align-items: center; /* Vertically centers the items */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 5rem;
+  margin-bottom: 3rem;
+}
+
+.social-media-icon {
+  height: 2%; /* Maintain aspect ratio */
+  display: inline-block; /* Ensures it behaves like a block element */
+  margin-right: .5rem;
+}
+
+.login-panel {
+  height: 100vh;
+  width: 50rem;
+  align-content: space-around;
+  padding-left: 2rem;
+  padding-right: 6rem;
+  border-radius: 8px;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #112D51;
+  margin-bottom: 1.5rem;
+  font-size: 5.5rem;
+  font-family: "industry", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
 
 h3 {
   text-align: center;
@@ -52,6 +130,24 @@ h3 {
   font-family: "industry", sans-serif;
   font-weight: 700;
   font-style: normal;
+}
+
+h4 {
+  color: #0D4D8C;
+  font-size: 1.25rem;
+  font-family: "industry", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-style: italic;
+}
+
+h6 {
+  color: #112D51;
+  font-size: 0.938rem;
+  font-family: "industry", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  align-items: space-around;
 }
 
 label {
@@ -75,16 +171,37 @@ label {
 }
 
 .forgot-password {
-  display: block;
-  text-align: right;
+  float: right;
   color: #D8D8D9;
   margin-bottom: 1.5rem;
-  font-size: .6rem;
+  font-size: 0.6rem;
   font-family: "industry", sans-serif;
   font-weight: 700;
-  font-style: normal;
+  width: fit-content;
+  cursor: pointer;
 }
 
+
+.forgot-password-popup {
+  display: none; /* Hidden by default */
+  position: absolute; /* Position relative to the parent container */
+  top: 50%;
+  left: calc(100% - 24rem);
+  transform: translateY(120%);
+  width: 225px;
+  font-size: 0.6rem;
+  font-family: "industry", sans-serif;
+  font-weight: 700;
+  background-color: #D9D9D9;
+  filter: opacity(90%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 10;
+}
+
+.forgot-password:hover + .forgot-password-popup {
+  display: block; /* Show the floating div */
+}
 
 button {
   font-size: 1rem;
@@ -99,8 +216,6 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
-
-  
 }
 
 button:disabled {
@@ -112,15 +227,51 @@ button:hover {
   background-color: #4D545C;
 }
 
+.main-panel { 
+  margin-left: 4rem;
+  margin-right: 4rem;
+}
+
+.avatars {
+  overflow: hidden;
+}
+
+.avatar-pointer {
+  position: absolute;
+  width: 13rem;
+  bottom: -20%;
+  left: 55%;
+  object-fit: cover;  /* Works only for images or media elements */
+}
+
+.avatar-waver {
+  position: absolute;
+  width: 10rem;
+  top: 2rem;
+  right: -115px;
+  transform: rotate(-29deg); /* Correct rotation syntax */
+  object-fit: cover;  /* Works only for images or media elements */
+}
+
+.avatar-talker {
+  position: absolute;
+  width: 9rem;
+  top: 3.5rem;
+  right: 85px;
+  transform: rotate(-14deg); /* Correct rotation syntax */
+}
+
+
 
 input {
   width: 100%;
   padding: 0.75rem;
+  font-family: "industry", sans-serif;
+  font-weight: 700; 
   margin-bottom: 1.5rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
   font-size: 1rem;
-  color: #333;
+  color: #4985C5;
 }
 
 
@@ -133,64 +284,3 @@ input {
   font-style: italic;
 }
 
-
-/* 
- 
-.leftpanel {
-  background-color: #D9D9D9;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  float:left;
-} 
-
-
-
-
-
-
-
-input {
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  color: #333;
-}
-
-input[type="password"] {
-  font-family: Arial, sans-serif;
-}
-
-
-
-
-form .login {
-  display: flex;
-  flex-direction: column;
-}
-
-input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-@media (max-width: 480px) {
-  .login {
-    padding: 1.5rem;
-  }
-
-  h3 {
-    font-size: 1.25rem;
-  }
-
-  input {
-    font-size: 0.9rem;
-  }
-
-  button {
-    font-size: 0.9rem;
-  }
-} */
