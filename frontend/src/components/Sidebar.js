@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useLogout } from '../hooks/useLogout';
 import { FaHome, FaNewspaper, FaShoppingCart, FaFileInvoiceDollar, FaUsers, FaUser, FaClock, FaSignOutAlt } from 'react-icons/fa';
-import mbcLogo from '../images/mbclogo.webp';
+import mbcLogo from '../images/MBClogo.webp';
 
 const Sidebar = () => {
     const { logout } = useLogout();
