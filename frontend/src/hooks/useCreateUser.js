@@ -30,9 +30,6 @@ export const useCreateUser = () => {
       // Add user to UserContext
       userDispatch({ type: 'ADD_USER', payload: json });
 
-      // Optionally store user in AuthContext
-      localStorage.setItem('user', JSON.stringify(json));
-      authDispatch({ type: 'LOGIN', payload: json });
     } catch (error) {
       setError('An error occurred during signup.');
     } finally {

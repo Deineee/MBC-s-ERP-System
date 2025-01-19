@@ -16,18 +16,18 @@ const router = express.Router()
 router.post('/login', loginUser);
 
 // Signup route
-router.post('/createUser', authenticate, authorizeUserCreation, createUser);
+router.post('/createUser', authenticate, authorizeUserCreation, createUser)
 
 //sample for getting all user 
-router.get('/', authenticate, authorizeUserCreation, getUsers)
+router.get('/', authenticate, getUsers, authorizeUserCreation)
 
 //sample for getting single user 
-router.get('/:id', authenticate, authorizeUserCreation, getUser)
+router.get('/:id', authenticate, getUser, authorizeUserCreation)
 
 //sample DELETE a  new user
-router.delete('/:id', authenticate, authorizeUserCreation, deleteUser)
+router.delete('/:id', authenticate, deleteUser, authorizeUserCreation)
 
 //sample UPDATE a  new user 
-router.patch('/:id', authenticate, authorizeUserCreation, updateUser) 
+router.patch('/:id', authenticate, updateUser, authorizeUserCreation) 
 
 module.exports = router

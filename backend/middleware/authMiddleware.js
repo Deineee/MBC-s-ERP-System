@@ -12,7 +12,7 @@ const authenticate = async (req, res, next) => {
 
   try {
       const { _id } = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await User.findOne({ _id }).select('_id');
+      const user = await User.findOne({ _id }).select('_id position');
 
       if (!user) {
           return res.status(404).json({ error: 'User not found' });
