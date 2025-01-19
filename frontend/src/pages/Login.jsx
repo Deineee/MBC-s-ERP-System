@@ -92,7 +92,7 @@ const Panel = () => {
       />
       <label className="forgot-password">Forgot password?</label>
 
-      <div class="forgot-password-popup">
+      <div className="forgot-password-popup">
         <p>Please contact</p>
         <p>Human Resource Officer-Mechele Pacalang</p>
         <br />

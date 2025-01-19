@@ -5,7 +5,6 @@ import { useUserContext } from './useUserContext';
 export const useCreateUser = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { dispatch: authDispatch } = useAuthContext();
   const { dispatch: userDispatch } = useUserContext();
   const { user } = useAuthContext()
   
