@@ -22,8 +22,8 @@ const loginUser = async (req, res) => {
     }
 }
 
-// Signup user
-const signupUser = async (req, res) => {
+// Create user
+const createUser = async (req, res) => {
     const { firstName, middleName, lastName, email, password, position } = req.body;
   
     try {
@@ -114,6 +114,6 @@ module.exports = {
     getUser,
     updateUser,
     deleteUser,
-    signupUser,
+    createUser,
     loginUser
 }

@@ -11,7 +11,7 @@ function App() {
   const { user, loading  } = useAuthContext(); 
 
   if (loading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>; // need to change this to an official loading screen
   }
 
   return (

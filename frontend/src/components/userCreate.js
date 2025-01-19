@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSignup } from '../hooks/useSignup'; 
+import { useCreateUser } from '../hooks/useCreateUser'; 
 import styled from 'styled-components';
 
 // Styled components
@@ -68,7 +68,7 @@ const Error = styled.div`
 `;
 
 const UserCreate = () => {
-  const { signup, isLoading, error } = useSignup();
+  const { createUser, isLoading, error } = useCreateUser();
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -87,7 +87,7 @@ const UserCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, middleName, lastName, email, password, position } = formData;
-    await signup(firstName, middleName, lastName, email, password, position);
+    await createUser(firstName, middleName, lastName, email, password, position);
   };
 
   return (
@@ -162,7 +162,7 @@ const UserCreate = () => {
             value={formData.position}
             onChange={handleChange}
           >
-             <option value="president">President</option>
+            <option value="president">President</option>
             <option value="vice-president">Vice President</option>
             <option value="corporate secretary">Corporate Secretary</option>
             <option value="finance officer">Finance Officer</option>
