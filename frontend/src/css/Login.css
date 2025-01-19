@@ -1,4 +1,4 @@
-/* General Styles */
+
 * {
   margin: 0;
   padding: 0;
@@ -6,8 +6,8 @@
 }
 
 html, body {
-  overflow: hidden;  /* Prevent scrolling */
-  height: 100%;      /* Ensure the height is set to prevent scrolling */
+  overflow: hidden;  
+  height: 100%;      
 }
 
 .login-page {
@@ -23,7 +23,7 @@ html, body {
 
 .login-container {  
   display: flex;
-  flex-direction: column; /* Stack items vertically */
+  flex-direction: column; 
   justify-content: space-between; /* Distribute items vertically with space between */
   align-items: left; /* Center items horizontally */
   padding-top: 3rem;

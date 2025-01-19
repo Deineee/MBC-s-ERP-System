@@ -1,20 +1,22 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useLogout } from '../hooks/useLogout'
+import { Link } from 'react-router-dom';
+import { useLogout } from '../hooks/useLogout';
+import { FaHome, FaNewspaper, FaShoppingCart, FaFileInvoiceDollar, FaUsers, FaUser, FaClock, FaSignOutAlt } from 'react-icons/fa';
+import mbcLogo from '../images/mbclogo.webp';
 
 const Sidebar = () => {
-    const { logout } =  useLogout();
+    const { logout } = useLogout();
 
     const handleLogout = () => {
-        logout(); 
+        logout();
     };
 
     return (
         <aside className="sidebar">
-            {/* Logo Container */}
+            {/* Logo Section */}
             <div className="logo-container">
-                <Link to="/">
-                    <h1>MBC System</h1> {/* Update this title as needed */}
-                </Link>
+                <img src={mbcLogo} alt="MBC Logo" className="logo" />
+
+
             </div>
 
             {/* Sidebar Navigation */}
@@ -22,48 +24,68 @@ const Sidebar = () => {
                 <ul>
                     {/* Dashboard */}
                     <li>
-                        <Link to="/dashboard">Dashboard</Link>
+                        <Link to="/dashboard">
+                            <FaHome className="icon" /> Dashboard
+                        </Link>
                     </li>
 
                     {/* News */}
                     <li>
-                        <Link to="/news">News</Link>
+                        <Link to="/news">
+                            <FaNewspaper className="icon" /> News
+                        </Link>
                     </li>
 
                     {/* Inventory */}
                     <li>
-                        <Link to="/inventory">Inventory</Link>
+                        <Link to="/inventory">
+                            <FaShoppingCart className="icon" /> Inventory
+                        </Link>
                     </li>
 
                     {/* Sales */}
                     <li>
-                        <Link to="/sales">Sales</Link>
+                        <Link to="/sales">
+                            <FaFileInvoiceDollar className="icon" /> Sales
+                        </Link>
                     </li>
 
                     {/* Finance */}
                     <li>
-                        <Link to="/finance">Finance</Link>
+                        <Link to="/finance">
+                            <FaFileInvoiceDollar className="icon" /> Finance
+                        </Link>
                     </li>
 
-                    {/* User */}
+                    {/* Users */}
                     <li className="has-dropdown">
-                        <span>User</span>
+                        <span>
+                            <FaUsers className="icon" /> Users
+                        </span>
                         <ul className="dropdown">
                             <li>
-                                <Link to="/user/profile">Profile</Link>
+                                <Link to="/user/profiles">
+                                    <FaUser className="icon" /> Profiles
+                                </Link>
                             </li>
                             <li>
-                                <Link to="/user/attendance">Attendance</Link>
+                                <Link to="/user/attendance">
+                                    <FaClock className="icon" /> Attendance
+                                </Link>
                             </li>
                         </ul>
                     </li>
 
-                    {/* Logout Button */}
-                    <li>
-                        <button className="logout-btn" onClick={handleLogout}>Logout</button>
-                    </li>
+                    
                 </ul>
+                
+                    
             </nav>
+            <div className="logout-container">
+                <button className="logout-btn" onClick={handleLogout}>
+                    <FaSignOutAlt className="icon" /> Logout
+                </button>
+            </div>
         </aside>
     );
 };

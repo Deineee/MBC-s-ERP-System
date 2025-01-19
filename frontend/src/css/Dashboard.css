@@ -17,7 +17,7 @@
     background-color: #f4f4f9;
     color: #333;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-left: 250px; /* Ensure content doesn't overlap the sidebar */
+    margin-left: 250px; 
   }
   
   h2 {
@@ -25,7 +25,7 @@
     margin-bottom: 20px;
   }
 
-/* Button to create user */
+
 .create-user-button {
   padding: 10px 20px;
   background-color: #007bff;
@@ -40,21 +40,21 @@
   background-color: #0056b3;
 }
 
-/* Modal overlay */
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Dark background with transparency */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
-/* Modal content box */
+
 .modal-content {
   background-color: white;
   padding: 20px;
@@ -64,7 +64,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Close button for modal */
+
 .close-modal {
   position: absolute;
   top: 10px;
