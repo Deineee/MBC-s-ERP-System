@@ -20,13 +20,15 @@ export const useLogin = () => {
       // Check if response is ok
       const json = await response.json()
 
+      console.log('Logged-in user:', json);
+      
       if (!response.ok) {
         setError(json.error || 'Login failed')
         return false
       }
       // Store user in localStorage and update context
       localStorage.setItem('user', JSON.stringify(json))
-      console.log('User logged in:', json)
+      
       dispatch({ type: 'LOGIN', payload: json })
 
       return true

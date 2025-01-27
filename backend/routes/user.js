@@ -1,6 +1,5 @@
 const express = require('express')
 const authenticate = require('../middleware/authMiddleware');
-const authorizeUserCreation = require('../middleware/authorizeUserCreation');
 const {
     getUsers,
     getUser,
@@ -16,18 +15,18 @@ const router = express.Router()
 router.post('/login', loginUser);
 
 // Signup route
-router.post('/createUser', authenticate, authorizeUserCreation, createUser)
+router.post('/createUser', authenticate,createUser)
 
 //sample for getting all user 
-router.get('/', authenticate, getUsers, authorizeUserCreation)
+router.get('/', authenticate, getUsers)
 
 //sample for getting single user 
-router.get('/:id', authenticate, getUser, authorizeUserCreation)
+router.get('/:id', authenticate, getUser)
 
 //sample DELETE a  new user
-router.delete('/:id', authenticate, deleteUser, authorizeUserCreation)
+router.delete('/:id', authenticate, deleteUser)
 
 //sample UPDATE a  new user 
-router.patch('/:id', authenticate, updateUser, authorizeUserCreation) 
+router.patch('/:id', authenticate, updateUser) 
 
 module.exports = router

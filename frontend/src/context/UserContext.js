@@ -23,23 +23,6 @@ export const UserContextProvider = ({ children }) => {
     users: [], // Initial state
   });
 
-  // Fetch users on initial render
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch('/api/user');
-        const data = await response.json();
-        if (response.ok) {
-          dispatch({ type: 'SET_USERS', payload: data });
-        }
-      } catch (error) {
-        console.error('Failed to fetch users:', error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
-
   return (
     <UserContext.Provider value={{ ...state, dispatch }}>
       {children}

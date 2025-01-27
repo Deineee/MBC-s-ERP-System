@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useCreateUser } from '../hooks/useCreateUser'; 
+import { useAuthContext } from '../hooks/useAuthContext';
+import { useUserContext } from '../hooks/useUserContext';
 import styled from 'styled-components';
 
 // Styled components
@@ -68,8 +69,8 @@ const Error = styled.div`
 `;
 
 const UserCreate = () => {
-  const { createUser, isLoading, error } = useCreateUser();
-
+  const { dispatch: userDispatch } = useUserContext();
+  const { user } = useAuthContext();
   const [formData, setFormData] = useState({
     firstName: '',
     middleName: '',
@@ -78,6 +79,8 @@ const UserCreate = () => {
     password: '',
     position: 'staff',
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,16 +90,49 @@ const UserCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, middleName, lastName, email, password, position } = formData;
-    await createUser(firstName, middleName, lastName, email, password, position);
+    
+    if (!user || !user.token) {
+      setError('User not authenticated. Please log in.');
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/user/createUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({ firstName, middleName, lastName, email, password, position }),
+      });
+
+      const json = await response.json();
+
+      if (!response.ok) {
+        // If response is not OK, log the message from the server response
+        setError(json.message || 'User creation failed');
+        return;
+      }
+
+      // Dispatch the newly created user to the context
+      userDispatch({ type: 'ADD_USER', payload: json });
+    } catch (err) {
+      setError('An error occurred during user creation. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="signup-container">
-      <h2>Create User</h2>
-      <form onSubmit={handleSubmit} className="signup-form">
+    <Container>
+      <Heading>Create User</Heading>
+      <Form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="firstName">First Name:</label>
-          <input
+          <Label htmlFor="firstName">First Name:</Label>
+          <Input
             type="text"
             id="firstName"
             name="firstName"
@@ -107,8 +143,8 @@ const UserCreate = () => {
         </div>
 
         <div>
-          <label htmlFor="middleName">Middle Name:</label>
-          <input
+          <Label htmlFor="middleName">Middle Name:</Label>
+          <Input
             type="text"
             id="middleName"
             name="middleName"
@@ -119,8 +155,8 @@ const UserCreate = () => {
         </div>
 
         <div>
-          <label htmlFor="lastName">Last Name:</label>
-          <input
+          <Label htmlFor="lastName">Last Name:</Label>
+          <Input
             type="text"
             id="lastName"
             name="lastName"
@@ -131,8 +167,8 @@ const UserCreate = () => {
         </div>
 
         <div>
-          <label htmlFor="email">Email:</label>
-          <input
+          <Label htmlFor="email">Email:</Label>
+          <Input
             type="email"
             id="email"
             name="email"
@@ -143,8 +179,8 @@ const UserCreate = () => {
         </div>
 
         <div>
-          <label htmlFor="password">Password:</label>
-          <input
+          <Label htmlFor="password">Password:</Label>
+          <Input
             type="password"
             id="password"
             name="password"
@@ -155,8 +191,8 @@ const UserCreate = () => {
         </div>
 
         <div>
-          <label htmlFor="position">Position:</label>
-          <select
+          <Label htmlFor="position">Position:</Label>
+          <Select
             id="position"
             name="position"
             value={formData.position}
@@ -174,18 +210,17 @@ const UserCreate = () => {
             <option value="sales personnel">Sales Personnel</option>
             <option value="driver">Driver</option>
             <option value="staff">Staff</option>
-          </select>
+          </Select>
         </div>
 
-        <button type="submit" disabled={isLoading}>
+        <SubmitButton type="submit" disabled={isLoading}>
           {isLoading ? 'Creating...' : 'Create User'}
-        </button>
+        </SubmitButton>
 
-        {error && <div className="error-message">{error}</div>}
-      </form>
-    </div>
+        {error && <Error>{error}</Error>}
+      </Form>
+    </Container>
   );
 };
 
 export default UserCreate;
-
