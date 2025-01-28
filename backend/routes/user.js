@@ -14,7 +14,7 @@ const router = express.Router()
 // Login route
 router.post('/login', loginUser);
 
-// Signup route
+// Create user route
 router.post('/createUser', authenticate,createUser)
 
 //sample for getting all user 
