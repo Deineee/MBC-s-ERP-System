@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Navbar from '../components/Navbar'; 
 import Sidebar from '../components/Sidebar'; 
-import UserCreate from '../components/userCreate';
+import UserCreate from '../components/UserCreate';
 import '../css/Sidebar.css';
 import '../css/Dashboard.css';
 import '../css/Navbar.css';

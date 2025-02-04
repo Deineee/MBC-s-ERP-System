@@ -19,8 +19,6 @@ export const useLogin = () => {
       
       // Check if response is ok
       const json = await response.json()
-
-      console.log('Logged-in user:', json);
       
       if (!response.ok) {
         setError(json.error || 'Login failed')

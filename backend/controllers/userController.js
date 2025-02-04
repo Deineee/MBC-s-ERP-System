@@ -2,11 +2,13 @@ const User = require('../models/userModel')
 const mongoose = require ('mongoose')
 const jwt = require('jsonwebtoken')
 const { getIO } = require('../utils/socket');
+
+// Create Token
 const createToken = (_id) => {
     return jwt.sign({_id}, process.env.JWT_SECRET, { expiresIn: '3d' })
   }
 
-/// Login user
+// Login user
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
